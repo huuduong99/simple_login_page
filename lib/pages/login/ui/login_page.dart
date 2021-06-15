@@ -35,6 +35,8 @@ class _LoginPageState extends State<LoginPage> {
               context,
               MaterialPageRoute<void>(builder: (context) => const HomePage()),
             );
+          }else if(state is LoginFailure){
+            _showSnackBar('Fail . Please login again ...!');
           }
         }, builder: (BuildContext context, LoginState state) {
           return Container(
@@ -185,6 +187,7 @@ class _LoginPageState extends State<LoginPage> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
+          FocusScope.of(context).unfocus();
           final String userName = _userNameController.text.trim().toString();
           final String password = _passwordController.text.trim().toString();
           _loginBloc
