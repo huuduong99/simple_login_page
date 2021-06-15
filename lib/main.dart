@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:simple_login_page/pages/login_page.dart';
+import 'package:simple_login_page/pages/login/ui/login_page.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: LoginPage(),
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MaterialApp(
+      home : LoginPage()
   ));
 }
-
-
