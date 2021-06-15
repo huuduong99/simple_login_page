@@ -23,57 +23,55 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _loginBloc,
-      child: ScaffoldMessenger(
-        key: _scaffoldMessengerKey,
-        child: Scaffold(
-            body: BlocConsumer<LoginBloc, LoginState>(
-                listener: (BuildContext context, LoginState state) {
-          if (state is LoginSuccess) {
-            Navigator.push(
-              context,
-              MaterialPageRoute<void>(builder: (context) => const HomePage()),
-            );
-          }else if(state is LoginFailure){
-            _showSnackBar('Fail . Please login again ...!');
-          }
-        }, builder: (BuildContext context, LoginState state) {
-          return Container(
-              height: double.infinity,
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
+    return ScaffoldMessenger(
+      key: _scaffoldMessengerKey,
+      child: Scaffold(
+          body: BlocConsumer<LoginBloc, LoginState>(
+            bloc: _loginBloc,
+              listener: (BuildContext context, LoginState state) {
+        if (state is LoginSuccess) {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(builder: (context) => const HomePage()),
+          );
+        }else if(state is LoginFailure){
+          _showSnackBar('Fail . Please login again ...!');
+        }
+      }, builder: (BuildContext context, LoginState state) {
+        return Container(
+            height: double.infinity,
+            width: double.infinity,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  const Text(
+                    'Login',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  sizebox,
+                  _buildUsername(),
+                  const SizedBox(height: 10.0),
+                  _buildPassword(),
+                  _buildForgetPassword(),
+                  sizebox,
+                  _buildLoginButton(),
+                  const SizedBox(height: 50.0),
+                  _buildSignUpButton()
+                ],
               ),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      'Login',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    sizebox,
-                    _buildUsername(),
-                    const SizedBox(height: 10.0),
-                    _buildPassword(),
-                    _buildForgetPassword(),
-                    sizebox,
-                    _buildLoginButton(),
-                    const SizedBox(height: 50.0),
-                    _buildSignUpButton()
-                  ],
-                ),
-              ));
-        })),
-      ),
+            ));
+      })),
     );
   }
 
